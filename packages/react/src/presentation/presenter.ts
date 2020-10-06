@@ -9,6 +9,10 @@ export class Presenter<TState extends {}, TView extends View = View> {
     this._state = state;
   }
 
+  get state(): TState {
+    return this._state;
+  }
+
   setState(value: Partial<TState>) {
     this._state = {
       ...this._state,
