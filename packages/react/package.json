@@ -7,11 +7,25 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest"
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && tsc -p ./tsconfig.json",
+    "test": "jest",
+    "prepublish": "npm run build && cp ./package.json ./dist/package.json"
   },
   "dependencies": {
-    "@neonjs/core": "^0.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "peerDependencies": {
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.51",
+    "@types/react-dom": "^16.9.8",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.3"
   }
 }
