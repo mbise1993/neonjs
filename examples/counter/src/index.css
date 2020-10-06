@@ -8,6 +8,22 @@ body {
 }
 
 #root {
-  height: 100vh;
-  overflow: hidden;
+  width: 100vw;
+  display: flex;
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding-top: 20px;
+}
+
+.btn-container {
+  margin-top: 8px;
+}
+
+.increment {
+  margin-left: 8px;
 }
