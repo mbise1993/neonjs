@@ -1,25 +1,51 @@
 import { injectable } from 'inversify';
 import { Presenter } from '@neonjs/react';
 
-interface TodoListState {
-  count: number;
+interface TodoItem {
+  id: number;
+  text: string;
+  isDone: boolean;
 }
 
 @injectable()
-export class TodoListPresenter extends Presenter<TodoListState> {
-  get count() {
-    return this.state.count;
+export class TodoListPresenter extends Presenter {
+  private _items: TodoItem[] = [];
+  private _newItemText = '';
+
+  get items() {
+    return this._items;
   }
 
-  decrement() {
-    this.setState({
-      count: this.count - 1,
+  get newItemText() {
+    return this._newItemText;
+  }
+
+  updateNewItemText(value: string) {
+    this.setState(() => {
+      this._newItemText = value;
     });
   }
 
-  increment() {
-    this.setState({
-      count: this.count + 1,
+  addNewItem() {
+    this.setState(() => {
+      this._items.push({
+        id: this.items.length + 1,
+        text: this.newItemText,
+        isDone: false,
+      });
+
+      this._newItemText = '';
+    });
+  }
+
+  toggleItemDone(itemId: number) {
+    const item = this.items.find((i) => i.id === itemId);
+    if (!item) {
+      return;
+    }
+
+    this.setState(() => {
+      item.isDone = !item.isDone;
     });
   }
 }
