@@ -1,0 +1,17 @@
+{
+  "name": "@neonjs/react",
+  "version": "0.0.1",
+  "description": "React bindings for NeonJS",
+  "author": "Matt Bise",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@neonjs/core": "^0.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
