@@ -1,5 +1,6 @@
-import { usePresenter } from '@neonjs/react';
 import React from 'react';
+import { usePresenter } from '@neonjs/react';
+
 import { CounterPresenter } from './counterPresenter';
 
 export const Counter: React.FC = () => {

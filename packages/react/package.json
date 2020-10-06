@@ -4,13 +4,16 @@
   "description": "React bindings for NeonJS",
   "author": "Matt Bise",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "npm run clean && tsc -p ./tsconfig.json",
-    "test": "jest",
-    "prepublish": "npm run build && cp ./package.json ./dist/package.json"
+    "build": "yarn clean && tsc -p tsconfig.json",
+    "watch": "yarn clean && tsc -p tsconfig.json --watch",
+    "test": "jest"
   },
   "peerDependencies": {
     "inversify": "^5.0.1",
@@ -25,7 +28,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.0.3"
+    "rimraf": "^3.0.2"
   }
 }

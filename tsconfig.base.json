@@ -18,6 +18,6 @@
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
     "removeComments": true,
-    "target": "es2016"
+    "target": "es5"
   }
 }

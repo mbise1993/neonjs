@@ -1,6 +1,7 @@
+import { AnyObject } from '~/util/types';
 import { View } from './view';
 
-export class Presenter<TState extends {}, TView extends View = View> {
+export class Presenter<TState extends AnyObject, TView extends View = View> {
   private _view!: TView;
   private _state!: TState;
 

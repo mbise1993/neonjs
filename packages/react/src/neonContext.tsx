@@ -19,7 +19,7 @@ export const NeonProvider: React.FC<NeonProviderProps> = ({
     return {
       container,
     };
-  }, []);
+  }, [container]);
 
   return <NeonContext.Provider value={value}>{children}</NeonContext.Provider>;
 };

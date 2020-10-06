@@ -10,7 +10,10 @@ import { CounterPresenter } from './counterPresenter';
 
 import './index.css';
 
-const container = new Container();
+const container = new Container({
+  skipBaseClassChecks: true,
+});
+
 container.bind(CounterPresenter).toSelf().inSingletonScope();
 
 ReactDOM.render(
