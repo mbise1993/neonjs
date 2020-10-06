@@ -1,17 +1,13 @@
 import React from 'react';
 import { interfaces } from 'inversify';
 
-import { AnyObject } from '../util/types';
 import { Presenter } from '../presentation/presenter';
 import { useInject } from './useInject';
 import { View } from '../presentation/view';
 
-export const usePresenter = <
-  TState extends AnyObject,
-  TPresenter extends Presenter<TState>
->(
+export const usePresenter = <TPresenter extends Presenter>(
   id: interfaces.ServiceIdentifier<TPresenter>,
-  initialState: TState,
+  initialize: (presenter: TPresenter) => void = () => {},
 ): TPresenter => {
   const presenter = useInject(id);
   const isInitialized = React.useRef(false);
@@ -24,7 +20,8 @@ export const usePresenter = <
   }, []);
 
   if (!isInitialized.current) {
-    presenter.initialize(view, initialState);
+    presenter.initialize(view);
+    initialize(presenter);
     isInitialized.current = true;
   }
 

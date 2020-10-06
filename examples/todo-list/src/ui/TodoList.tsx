@@ -1,10 +1,10 @@
 import React from 'react';
 import { usePresenter } from '@neonjs/react';
 
-import { CounterPresenter } from './counterPresenter';
+import { TodoListPresenter } from '../presentation/todoListPresenter';
 
-export const Counter: React.FC = () => {
-  const presenter = usePresenter(CounterPresenter);
+export const TodoList: React.FC = () => {
+  const presenter = usePresenter(TodoListPresenter, { count: 0 });
 
   return (
     <div className="counter">

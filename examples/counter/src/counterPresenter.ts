@@ -1,25 +1,23 @@
 import { injectable } from 'inversify';
 import { Presenter } from '@neonjs/react';
 
-interface CounterState {
-  count: number;
-}
-
 @injectable()
-export class CounterPresenter extends Presenter<CounterState> {
+export class CounterPresenter extends Presenter {
+  private _count = 0;
+
   get count() {
-    return this.state.count;
+    return this._count;
   }
 
   decrement() {
-    this.setState({
-      count: this.count - 1,
+    this.setState(() => {
+      this._count -= 1;
     });
   }
 
   increment() {
-    this.setState({
-      count: this.count + 1,
+    this.setState(() => {
+      this._count += 1;
     });
   }
 }
