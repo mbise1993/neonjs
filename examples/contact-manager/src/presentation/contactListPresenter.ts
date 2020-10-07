@@ -8,8 +8,9 @@ export class ContactListPresenter extends Presenter {
   constructor(@inject(ContactService) private _contactService: ContactService) {
     super();
 
-    _contactService.events.on('activeContactChanged', () => {
-      this.setState(() => {});
+    _contactService.events.onMany({
+      activeContactChanged: () => this.setState(() => {}),
+      contactsChanged: () => this.setState(() => {}),
     });
   }
 

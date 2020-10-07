@@ -56,6 +56,14 @@ export class ContactService {
     this._emitter.emit('activeContactChanged', {});
   }
 
+  updateContact(value: Contact) {
+    this._contacts = this._contacts.map((contact) =>
+      contact.id === value.id ? value : contact,
+    );
+
+    this._emitter.emit('contactsChanged', {});
+  }
+
   deleteContact(id: number) {
     this._contacts = this._contacts.filter((item) => item.id !== id);
     this._emitter.emit('contactsChanged', {});

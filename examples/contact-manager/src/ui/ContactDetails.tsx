@@ -8,16 +8,17 @@ export const ContactDetails: React.FC = () => {
 
   return (
     <div className="card flex-1 ml-4 p-3" style={{ height: '400px' }}>
-      {presenter.contact ? (
+      {presenter.id ? (
         <>
-          <h5>{`${presenter.contact?.id} - ${presenter.contact?.name}`}</h5>
-          <form>
+          <h5>{`${presenter.id} - ${presenter.name}`}</h5>
+          <div>
             <div className="form-group">
               <label>Name</label>
               <input
                 type="name"
                 className="form-control"
-                value={presenter.contact?.name}
+                value={presenter.name}
+                onChange={(e) => presenter.setName(e.target.value)}
               />
             </div>
 
@@ -26,7 +27,8 @@ export const ContactDetails: React.FC = () => {
               <input
                 type="email"
                 className="form-control"
-                value={presenter.contact?.email}
+                value={presenter.email}
+                onChange={(e) => presenter.setEmail(e.target.value)}
               />
             </div>
 
@@ -35,16 +37,20 @@ export const ContactDetails: React.FC = () => {
               <input
                 type="phone"
                 className="form-control"
-                value={presenter.contact?.phone ?? ''}
+                value={presenter.phone}
+                onChange={(e) => presenter.setPhone(e.target.value)}
               />
             </div>
 
             <div className="form-group">
-              <button type="submit" className="btn btn-primary">
+              <button
+                className="btn btn-primary"
+                onClick={() => presenter.submit()}
+              >
                 Submit
               </button>
             </div>
-          </form>
+          </div>
         </>
       ) : (
         'Select a contact'
