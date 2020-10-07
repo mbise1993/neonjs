@@ -7,7 +7,7 @@ export const ContactDetails: React.FC = () => {
   const presenter = usePresenter(ContactDetailsPresenter);
 
   return (
-    <div className="card flex-1 ml-4 p-2" style={{ height: '400px' }}>
+    <div className="card flex-1 ml-4 p-3" style={{ height: '400px' }}>
       {presenter.contact ? (
         <>
           <h5>{`${presenter.contact?.id} - ${presenter.contact?.name}`}</h5>
@@ -37,6 +37,12 @@ export const ContactDetails: React.FC = () => {
                 className="form-control"
                 value={presenter.contact?.phone ?? ''}
               />
+            </div>
+
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </div>
           </form>
         </>
