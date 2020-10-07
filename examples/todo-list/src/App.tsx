@@ -6,9 +6,9 @@ export const App: React.FC = () => {
   return (
     <div className="container">
       <div className="d-flex justify-content-center my-4">
-        <h1 className="text-primary">NeonJS</h1>
+        <h2 className="text-primary">NeonJS</h2>
         &nbsp;&nbsp;
-        <h1 className="text-muted">Todo List</h1>
+        <h2 className="text-muted">Todo List</h2>
       </div>
 
       <TodoList />
