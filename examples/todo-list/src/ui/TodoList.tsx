@@ -14,24 +14,28 @@ export const TodoList: React.FC = () => {
   };
 
   return (
-    <div className="todo-list">
-      <div className="new-item-input-container">
+    <>
+      <div className="d-flex">
         <input
           autoFocus
-          className="new-item-input"
+          className="form-control"
           type="text"
+          placeholder="What do you need to do?"
           value={presenter.newItemText}
           onChange={(e) => presenter.updateNewItemText(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <button
+          className="btn btn-primary ml-2 text-nowrap"
+          type="button"
           disabled={presenter.newItemText.length === 0}
           onClick={() => presenter.addNewItem()}
         >
           Add Item
         </button>
       </div>
-      <ul className="todo-items-list">
+
+      <ul className="list-group mt-4">
         {presenter.items.map((item) => (
           <TodoItem
             key={item.id}
@@ -42,6 +46,6 @@ export const TodoList: React.FC = () => {
           />
         ))}
       </ul>
-    </div>
+    </>
   );
 };

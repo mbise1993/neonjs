@@ -14,12 +14,15 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   onDeleteClick,
 }) => {
   return (
-    <li className="todo-item">
+    <li className="list-group-item d-flex justify-content-between">
       <div>
         <input type="checkbox" checked={isDone} onChange={onToggleDone} />
-        <span className="todo-item-text">{text}</span>
+        <span className="ml-3">{isDone ? <del>{text}</del> : text}</span>
       </div>
-      <button onClick={onDeleteClick}>X</button>
+
+      <button type="button" className="close" onClick={onDeleteClick}>
+        <span aria-hidden="true">&times;</span>
+      </button>
     </li>
   );
 };
