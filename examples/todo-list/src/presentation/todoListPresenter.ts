@@ -48,4 +48,10 @@ export class TodoListPresenter extends Presenter {
       item.isDone = !item.isDone;
     });
   }
+
+  deleteItem(itemId: number) {
+    this.setState(() => {
+      this._items = this._items.filter((item) => item.id !== itemId);
+    });
+  }
 }

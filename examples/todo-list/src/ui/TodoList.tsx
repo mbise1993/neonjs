@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePresenter } from '@neonjs/react';
 
+import { TodoItem } from './TodoItem';
 import { TodoListPresenter } from '../presentation/todoListPresenter';
 
 export const TodoList: React.FC = () => {
@@ -24,14 +25,13 @@ export const TodoList: React.FC = () => {
       </div>
       <ul className="todo-items-list">
         {presenter.items.map((item) => (
-          <li key={item.id} className="todo-item">
-            <input
-              type="checkbox"
-              checked={item.isDone}
-              onChange={() => presenter.toggleItemDone(item.id)}
-            />
-            <span className="todo-item-text">{item.text}</span>
-          </li>
+          <TodoItem
+            key={item.id}
+            text={item.text}
+            isDone={item.isDone}
+            onToggleDone={() => presenter.toggleItemDone(item.id)}
+            onDeleteClick={() => presenter.deleteItem(item.id)}
+          />
         ))}
       </ul>
     </div>
