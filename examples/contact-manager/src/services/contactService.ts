@@ -1,6 +1,5 @@
+import { emitterOf } from '@neonjs/core';
 import { injectable } from 'inversify';
-
-import { emitterOf } from '../utils/emitter';
 
 export interface Contact {
   id: number;

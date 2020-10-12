@@ -27,7 +27,7 @@ export interface ReadOnlyEmitter<TEvents extends EventDefinitions> {
     event: TEvent,
     handle: Handle<TEvents[TEvent]>,
   ): Dispose;
-  onMany<THandlers extends Partial<EventHandlers<TEvents>>>(
+  on<THandlers extends Partial<EventHandlers<TEvents>>>(
     handlers: THandlers,
   ): AggregateDispose<THandlers>;
 }
@@ -48,6 +48,21 @@ export class Emitter<TEvents extends EventDefinitions> {
   on<TEvent extends keyof TEvents>(
     event: TEvent,
     handle: Handle<TEvents[TEvent]>,
+  ): Dispose;
+  on<THandlers extends Partial<EventHandlers<TEvents>>>(
+    handlers: THandlers,
+  ): AggregateDispose<THandlers>;
+  on(eventOrHandlers: any, handle: any = () => {}) {
+    if (typeof eventOrHandlers === 'object') {
+      return this.onMultiple(eventOrHandlers);
+    } else {
+      return this.onSingle(eventOrHandlers, handle);
+    }
+  }
+
+  private onSingle<TEvent extends keyof TEvents>(
+    event: TEvent,
+    handle: Handle<TEvents[TEvent]>,
   ): Dispose {
     if (!this.subscribersByEvent[event]) {
       this.subscribersByEvent[event] = {};
@@ -66,7 +81,7 @@ export class Emitter<TEvents extends EventDefinitions> {
     };
   }
 
-  onMany<THandlers extends Partial<EventHandlers<TEvents>>>(
+  private onMultiple<THandlers extends Partial<EventHandlers<TEvents>>>(
     handlers: THandlers,
   ): AggregateDispose<THandlers> {
     const disposeByEvent = Object.keys(handlers).reduce((acc, event) => {

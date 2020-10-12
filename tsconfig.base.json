@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "module": "ES2015",
+    "module": "CommonJS",
     "declaration": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,

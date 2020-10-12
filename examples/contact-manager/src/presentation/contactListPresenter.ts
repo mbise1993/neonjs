@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { Presenter } from '@neonjs/react';
+import { Presenter } from '@neonjs/core';
 
 import { ContactService } from '../services/contactService';
 
@@ -8,7 +8,7 @@ export class ContactListPresenter extends Presenter {
   constructor(@inject(ContactService) private _contactService: ContactService) {
     super();
 
-    _contactService.events.onMany({
+    _contactService.events.on({
       activeContactChanged: () => this.setState(() => {}),
       contactsChanged: () => this.setState(() => {}),
     });
