@@ -9,10 +9,9 @@ export class ContactListPresenter extends Presenter {
     super();
 
     this.trackDisposable(
-      _contactService.events.on({
-        activeContactChanged: () => this.setState(() => {}),
-        contactsChanged: () => this.setState(() => {}),
-      }),
+      _contactService.events.on('contactsChanged', () =>
+        this.setState(() => {}),
+      ),
     );
   }
 
@@ -20,15 +19,7 @@ export class ContactListPresenter extends Presenter {
     return this._contactService.contacts;
   }
 
-  get activeContact() {
-    return this._contactService.activeContact;
-  }
-
-  setActiveContact(id: number) {
-    this._contactService.setActiveContact(id);
-  }
-
-  deleteContact(id: number) {
+  deleteContact(id: string) {
     this._contactService.deleteContact(id);
   }
 }

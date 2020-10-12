@@ -24,35 +24,19 @@ const initialContacts: Contact[] = [
 
 interface ContactServiceEvents {
   contactsChanged: {};
-  activeContactChanged: {};
 }
 
 @injectable()
 export class ContactService {
   private _contacts: Contact[] = initialContacts;
-  private _activeContact: Contact | null = null;
   private _emitter = emitterOf<ContactServiceEvents>();
 
   get contacts() {
     return this._contacts;
   }
 
-  get activeContact() {
-    return this._activeContact;
-  }
-
   get events() {
     return this._emitter.asReadOnly();
-  }
-
-  setActiveContact(id: string) {
-    const contact = this._contacts.find((contact) => contact.id === id);
-    if (!contact) {
-      throw new Error(`Unable to find contact with ID: ${id}`);
-    }
-
-    this._activeContact = contact;
-    this._emitter.emit('activeContactChanged', {});
   }
 
   getContact(id: string) {
