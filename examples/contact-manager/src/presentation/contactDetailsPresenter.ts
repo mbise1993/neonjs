@@ -12,10 +12,10 @@ export class ContactDetailsPresenter extends Presenter {
   constructor(@inject(ContactService) private _contactService: ContactService) {
     super();
 
-    this.populateState();
+    this.setStateFromActiveContact();
 
     _contactService.events.on('activeContactChanged', () =>
-      this.setState(() => this.populateState()),
+      this.setState(() => this.setStateFromActiveContact()),
     );
   }
 
@@ -54,7 +54,7 @@ export class ContactDetailsPresenter extends Presenter {
     });
   }
 
-  private populateState() {
+  private setStateFromActiveContact() {
     this.name = this._contactService.activeContact?.name ?? '';
     this.email = this._contactService.activeContact?.email ?? '';
     this.phone = this._contactService.activeContact?.phone ?? '';
