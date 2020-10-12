@@ -18,5 +18,8 @@
   "peerDependencies": {
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13"
+  },
+  "dependencies": {
+    "class-validator": "^0.12.2"
   }
 }

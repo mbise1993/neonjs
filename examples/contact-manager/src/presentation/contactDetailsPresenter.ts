@@ -1,16 +1,13 @@
+import { FormPresenter } from '@neonjs/core';
 import { inject, injectable } from 'inversify';
-import { Presenter } from '@neonjs/core';
 
+import { ContactDetailsForm } from './contactDetailsForm';
 import { ContactService } from '../services/contactService';
 
 @injectable()
-export class ContactDetailsPresenter extends Presenter {
-  name!: string;
-  email!: string;
-  phone!: string;
-
+export class ContactDetailsPresenter extends FormPresenter<ContactDetailsForm> {
   constructor(@inject(ContactService) private _contactService: ContactService) {
-    super();
+    super(new ContactDetailsForm());
 
     this.setStateFromActiveContact();
 
@@ -19,44 +16,19 @@ export class ContactDetailsPresenter extends Presenter {
     );
   }
 
-  get id() {
-    return this._contactService.activeContact?.id;
-  }
-
-  setName(value: string) {
-    this.setState(() => {
-      this.name = value;
-    });
-  }
-
-  setEmail(value: string) {
-    this.setState(() => {
-      this.email = value;
-    });
-  }
-
-  setPhone(value: string) {
-    this.setState(() => {
-      this.phone = value;
-    });
-  }
-
-  submit() {
-    if (!this.id) {
-      return;
-    }
-
+  async onSubmit() {
     this._contactService.updateContact({
-      id: this.id,
-      name: this.name,
-      email: this.email,
-      phone: this.phone,
+      id: this.form.id,
+      name: this.form.name,
+      email: this.form.email,
+      phone: this.form.phone,
     });
   }
 
   private setStateFromActiveContact() {
-    this.name = this._contactService.activeContact?.name ?? '';
-    this.email = this._contactService.activeContact?.email ?? '';
-    this.phone = this._contactService.activeContact?.phone ?? '';
+    this.form.id = this._contactService.activeContact?.id ?? 0;
+    this.form.name = this._contactService.activeContact?.name ?? '';
+    this.form.email = this._contactService.activeContact?.email ?? '';
+    this.form.phone = this._contactService.activeContact?.phone ?? '';
   }
 }

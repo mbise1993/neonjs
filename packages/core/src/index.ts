@@ -1,3 +1,4 @@
+export { FormPresenter } from './presentation/formPresenter';
 export { Presenter } from './presentation/presenter';
 export { View } from './presentation/view';
 export { Emitter, ReadOnlyEmitter, emitterOf } from './util/emitter';
