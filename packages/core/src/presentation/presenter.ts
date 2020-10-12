@@ -1,6 +1,9 @@
+import { Disposable } from '../util/disposable';
 import { View } from './view';
 
 export abstract class Presenter<TView extends View = View> {
+  private _disposables: Disposable[] = [];
+
   private _view!: TView;
 
   get view() {
@@ -14,5 +17,14 @@ export abstract class Presenter<TView extends View = View> {
   setState(updateFn: () => void) {
     updateFn();
     this._view.update();
+  }
+
+  trackDisposable(disposable: Disposable) {
+    this._disposables.push(disposable);
+  }
+
+  dispose() {
+    this._disposables.forEach((disposable) => disposable.dispose());
+    this._disposables = [];
   }
 }

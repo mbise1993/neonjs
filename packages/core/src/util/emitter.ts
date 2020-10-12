@@ -1,11 +1,7 @@
+import { AggregateDisposable, Disposable } from './disposable';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type Handle<TPayload> = (payload: TPayload) => void;
-
-type Dispose = () => void;
-
-type AggregateDispose<TEvents> = {
-  all(): void;
-} & Record<keyof TEvents, Dispose>;
 
 type EventDefinitions = Record<string, any>;
 
@@ -26,10 +22,10 @@ export interface ReadOnlyEmitter<TEvents extends EventDefinitions> {
   on<TEvent extends keyof TEvents>(
     event: TEvent,
     handle: Handle<TEvents[TEvent]>,
-  ): Dispose;
+  ): Disposable;
   on<THandlers extends Partial<EventHandlers<TEvents>>>(
     handlers: THandlers,
-  ): AggregateDispose<THandlers>;
+  ): AggregateDisposable<THandlers>;
 }
 
 export class Emitter<TEvents extends EventDefinitions> {
@@ -48,10 +44,10 @@ export class Emitter<TEvents extends EventDefinitions> {
   on<TEvent extends keyof TEvents>(
     event: TEvent,
     handle: Handle<TEvents[TEvent]>,
-  ): Dispose;
+  ): Disposable;
   on<THandlers extends Partial<EventHandlers<TEvents>>>(
     handlers: THandlers,
-  ): AggregateDispose<THandlers>;
+  ): AggregateDisposable<THandlers>;
   on(eventOrHandlers: any, handle: any = () => {}) {
     if (typeof eventOrHandlers === 'object') {
       return this.onMultiple(eventOrHandlers);
@@ -63,7 +59,7 @@ export class Emitter<TEvents extends EventDefinitions> {
   private onSingle<TEvent extends keyof TEvents>(
     event: TEvent,
     handle: Handle<TEvents[TEvent]>,
-  ): Dispose {
+  ): Disposable {
     if (!this.subscribersByEvent[event]) {
       this.subscribersByEvent[event] = {};
     }
@@ -76,14 +72,16 @@ export class Emitter<TEvents extends EventDefinitions> {
 
     this.currentSubscriberId += 1;
 
-    return () => {
-      delete this.subscribersByEvent[event][id];
+    return {
+      dispose: () => {
+        delete this.subscribersByEvent[event][id];
+      },
     };
   }
 
   private onMultiple<THandlers extends Partial<EventHandlers<TEvents>>>(
     handlers: THandlers,
-  ): AggregateDispose<THandlers> {
+  ): AggregateDisposable<THandlers> {
     const disposeByEvent = Object.keys(handlers).reduce((acc, event) => {
       const handler = handlers[event];
 
@@ -93,13 +91,13 @@ export class Emitter<TEvents extends EventDefinitions> {
             [event]: this.on(event, handler),
           }
         : acc;
-    }, {} as Record<keyof THandlers, Dispose>);
+    }, {} as Record<keyof THandlers, Disposable>);
 
     return {
       ...disposeByEvent,
-      all: () => {
-        Object.values<Dispose>(disposeByEvent).forEach((dispose) => {
-          dispose();
+      dispose: () => {
+        Object.values<Disposable>(disposeByEvent).forEach((disposable) => {
+          disposable.dispose();
         });
       },
     };

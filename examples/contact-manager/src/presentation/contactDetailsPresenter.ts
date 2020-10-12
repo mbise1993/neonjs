@@ -11,8 +11,10 @@ export class ContactDetailsPresenter extends FormPresenter<ContactDetailsForm> {
 
     this.setStateFromActiveContact();
 
-    _contactService.events.on('activeContactChanged', () =>
-      this.setState(() => this.setStateFromActiveContact()),
+    this.trackDisposable(
+      _contactService.events.on('activeContactChanged', () =>
+        this.setState(() => this.setStateFromActiveContact()),
+      ),
     );
   }
 

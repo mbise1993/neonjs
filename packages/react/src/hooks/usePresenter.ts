@@ -24,5 +24,14 @@ export const usePresenter = <TPresenter extends Presenter>(
     isInitialized.current = true;
   }
 
+  React.useEffect(() => {
+    return () => {
+      if (presenter) {
+        presenter.dispose();
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return presenter;
 };

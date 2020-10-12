@@ -45,7 +45,6 @@ export abstract class FormPresenter<TForm> extends Presenter {
     });
 
     const validationErrors = await cvValidate(this._form);
-    console.log(validationErrors);
     if (validationErrors.length === 0) {
       await this.onSubmit();
       this.setState(() => {
