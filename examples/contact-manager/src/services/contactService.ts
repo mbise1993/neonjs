@@ -2,7 +2,7 @@ import { emitterOf } from '@neonjs/core';
 import { injectable } from 'inversify';
 
 export interface Contact {
-  id: number;
+  id: string;
   name: string;
   email: string;
   phone?: string;
@@ -10,12 +10,12 @@ export interface Contact {
 
 const initialContacts: Contact[] = [
   {
-    id: 1,
+    id: '1',
     name: 'Matt B',
     email: 'mattb@email.com',
   },
   {
-    id: 2,
+    id: '2',
     name: 'Jane Doe',
     email: 'janed@email.com',
     phone: '123-456-7890',
@@ -45,7 +45,7 @@ export class ContactService {
     return this._emitter.asReadOnly();
   }
 
-  setActiveContact(id: number) {
+  setActiveContact(id: string) {
     const contact = this._contacts.find((contact) => contact.id === id);
     if (!contact) {
       throw new Error(`Unable to find contact with ID: ${id}`);
@@ -53,6 +53,10 @@ export class ContactService {
 
     this._activeContact = contact;
     this._emitter.emit('activeContactChanged', {});
+  }
+
+  getContact(id: string) {
+    return this._contacts.find((contact) => contact.id === id);
   }
 
   updateContact(value: Contact) {
@@ -63,7 +67,7 @@ export class ContactService {
     this._emitter.emit('contactsChanged', {});
   }
 
-  deleteContact(id: number) {
+  deleteContact(id: string) {
     this._contacts = this._contacts.filter((item) => item.id !== id);
     this._emitter.emit('contactsChanged', {});
   }

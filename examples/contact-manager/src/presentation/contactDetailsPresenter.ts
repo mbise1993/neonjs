@@ -1,21 +1,22 @@
 import { FormPresenter } from '@neonjs/core';
 import { inject, injectable } from 'inversify';
 
+import { Contact, ContactService } from '../services/contactService';
 import { ContactDetailsForm } from './contactDetailsForm';
-import { ContactService } from '../services/contactService';
 
 @injectable()
 export class ContactDetailsPresenter extends FormPresenter<ContactDetailsForm> {
   constructor(@inject(ContactService) private _contactService: ContactService) {
     super(new ContactDetailsForm());
+  }
 
-    this.setStateFromActiveContact();
+  setContact(id: string) {
+    const contact = this._contactService.getContact(id);
+    if (!contact) {
+      throw new Error(`No contact found with ID: ${id}`);
+    }
 
-    this.trackDisposable(
-      _contactService.events.on('activeContactChanged', () =>
-        this.setState(() => this.setStateFromActiveContact()),
-      ),
-    );
+    this.setState(() => this.setStateFromContact(contact));
   }
 
   async onSubmit() {
@@ -27,10 +28,10 @@ export class ContactDetailsPresenter extends FormPresenter<ContactDetailsForm> {
     });
   }
 
-  private setStateFromActiveContact() {
-    this.form.id = this._contactService.activeContact?.id ?? 0;
-    this.form.name = this._contactService.activeContact?.name ?? '';
-    this.form.email = this._contactService.activeContact?.email ?? '';
-    this.form.phone = this._contactService.activeContact?.phone ?? '';
+  private setStateFromContact(contact: Contact) {
+    this.form.id = contact.id;
+    this.form.name = contact.name;
+    this.form.email = contact.email;
+    this.form.phone = contact.phone ?? '';
   }
 }

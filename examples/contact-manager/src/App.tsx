@@ -1,7 +1,9 @@
 import React from 'react';
-import { ContactDetails } from './ui/ContactDetails';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { ContactDetails } from './ui/ContactDetails';
 import { ContactList } from './ui/ContactList';
+import { NoContactSelected } from './ui/NoContactSelected';
 
 export const App: React.FC = () => {
   return (
@@ -12,10 +14,23 @@ export const App: React.FC = () => {
         <h2 className="text-muted">Contact Manager</h2>
       </div>
 
-      <div className="d-flex">
-        <ContactList />
-        <ContactDetails />
-      </div>
+      <Routes>
+        <Route path="contacts">
+          <div className="d-flex">
+            <ContactList />
+            <NoContactSelected />
+          </div>
+        </Route>
+        <Route path="contacts/:id">
+          <div className="d-flex">
+            <ContactList />
+            <ContactDetails />
+          </div>
+        </Route>
+        <Route path="*">
+          <Navigate to="/contacts" />
+        </Route>
+      </Routes>
     </div>
   );
 };

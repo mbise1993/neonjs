@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Container } from 'inversify';
 import { NeonProvider } from '@neonjs/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { App } from './App';
 import { ContactDetailsPresenter } from './presentation/contactDetailsPresenter';
@@ -22,9 +23,11 @@ container.bind(ContactDetailsPresenter).toSelf().inSingletonScope();
 
 ReactDOM.render(
   <React.StrictMode>
-    <NeonProvider container={container}>
-      <App />
-    </NeonProvider>
+    <Router>
+      <NeonProvider container={container}>
+        <App />
+      </NeonProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -1,8 +1,7 @@
-import { IsEmail, IsNotEmpty, Min } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class ContactDetailsForm {
-  @Min(1)
-  id = 0;
+  id = '';
 
   @IsNotEmpty()
   name = '';
