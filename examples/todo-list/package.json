@@ -11,15 +11,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@neonjs/react": "0.0.1",
-    "inversify": "^5.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "reflect-metadata": "^0.1.13"
+    "@neonjs/react": "0.0.1"
   },
   "devDependencies": {
-    "@types/react": "^16.9.51",
-    "@types/react-dom": "^16.9.8",
     "parcel-bundler": "^1.12.4"
   }
 }

@@ -10,20 +10,13 @@
     "dist"
   ],
   "scripts": {
-    "clean": "rimraf ./dist",
-    "build": "yarn clean && tsc -p tsconfig.json",
-    "watch": "yarn clean && tsc -p tsconfig.json --watch",
-    "test": "jest"
+    "watch": "tsdx watch --tsconfig tsconfig.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.json",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "clean": "rimraf ./dist"
   },
   "peerDependencies": {
-    "inversify": "^5.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "reflect-metadata": "^0.1.13"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.51",
-    "@types/react-dom": "^16.9.8",
     "inversify": "^5.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
