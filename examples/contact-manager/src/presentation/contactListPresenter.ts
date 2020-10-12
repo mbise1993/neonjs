@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { Presenter } from '@neonjs/react';
+import { Presenter } from '@neonjs/core';
 
 import { ContactService } from '../services/contactService';
 

@@ -11,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@neonjs/core": "0.0.1",
     "@neonjs/react": "0.0.1"
   },
   "devDependencies": {

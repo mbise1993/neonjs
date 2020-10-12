@@ -1,9 +1,8 @@
 import React from 'react';
 import { interfaces } from 'inversify';
+import { Presenter, View } from '@neonjs/core';
 
-import { Presenter } from '../presentation/presenter';
 import { useInject } from './useInject';
-import { View } from '../presentation/view';
 
 export const usePresenter = <TPresenter extends Presenter>(
   id: interfaces.ServiceIdentifier<TPresenter>,

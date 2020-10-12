@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { Presenter } from '@neonjs/react';
+import { Presenter } from '@neonjs/core';
 
 @injectable()
 export class CounterPresenter extends Presenter {
